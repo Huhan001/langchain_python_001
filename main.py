@@ -9,6 +9,6 @@ if __name__ == "__main__":
     # Usingagents()
     # textsplitter()
 
-    
+
     data = load_document('salary.pdf')
-    print('you have {} pages'.format(len(data)))
+    print(data)

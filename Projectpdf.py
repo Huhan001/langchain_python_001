@@ -22,6 +22,14 @@ def load_document(file):
         print("Loading document {}".format(file))
         loader = CSVLoader(file)
 
+    data = loader.load()
 
-    return loader.load()
+    # chunking
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    splitter = RecursiveCharacterTextSplitter(chunk_size=256, chunk_overlap=0, 
+                                              separators=['. ', '\n', '\r\n', '!', '?', ';', ':','/', '(', ')', '[', ']',',','\t'],
+                                              is_separator_regex=True)
+    chunks = splitter.split_documents(data)
+    return chunks
+
 
