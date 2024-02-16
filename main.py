@@ -1,4 +1,5 @@
 from myfunctions import *
+from Projectpdf import *
 
 if __name__ == "__main__":
     # setup('openai_api')
@@ -6,4 +7,8 @@ if __name__ == "__main__":
     # setPrompt()
     # simple_chain('openai_api')
     # Usingagents()
-    textsplitter()
+    # textsplitter()
+
+    
+    data = load_document('salary.pdf')
+    print('you have {} pages'.format(len(data)))
