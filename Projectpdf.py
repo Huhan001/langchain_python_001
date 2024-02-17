@@ -33,3 +33,20 @@ def load_document(file):
     return chunks
 
 
+    import pinecone
+    from langchain_community.vectorstores import Pinecone
+    from langchain_community.embeddings.openai import OpenAIGPTEmbeddings
+
+    # Load the embeddings
+    embeddings = OpenAIGPTEmbeddings(model_name="gpt-3.5-turbo", openai_api_key=os.getenv('openai_api'))
+    pinecone.init(api_key=os.getenv('pinecone_api'))
+
+    # Create a new Pinecone index
+    index_name = "langchain"
+    if index_name not in pinecone.list_indexes():
+        pinecone.create_index(index_name, metric="cosine", shards=1)
+        vector_store = Pinecone.from_documents(index_name, chunks, embeddings)
+        print("Index created")
+        return vector_store
+    else:
+        print("Index already exists")
