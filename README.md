@@ -1,2 +1,1 @@
-# langchain_python_001
-Deeplearning.AI
+The following portal is built on Streamlit and OpenAI API and purposely set apart for Thesis submission. 
