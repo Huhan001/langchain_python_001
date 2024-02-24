@@ -1,3 +1,6 @@
+from langchain_openai import ChatOpenAI
+from openai import OpenAI
+
 def create_dataframe_primer(df_dataset, df_name):
     """
     Function to generate a primer description and code for visualizing a DataFrame.
@@ -13,8 +16,9 @@ def create_dataframe_primer(df_dataset, df_name):
     primer_desc = f"Using a DataFrame named '{df_name}' with columns: {', '.join(df_dataset.columns)}."
     
     for col in df_dataset.columns:
-        if len(df_dataset[col].unique()) < 20 and df_dataset[col].dtype == "object":
-            primer_desc += f"\nThe column '{col}' contains categorical values: {', '.join(df_dataset[col].drop_duplicates())}."
+        if len(df_dataset[col].unique()) < 10 and df_dataset[col].dtype == "object":
+            primer_desc += f"\nThe column '{col}' contains categorical values: {', '.join(map(str, df_dataset[col].drop_duplicates()))}."
+            # primer_desc += f"\nThe column '{col}' contains categorical values: {', '.join(df_dataset[col].drop_duplicates())}."
         elif df_dataset[col].dtype in ["int64", "float64"]:
             primer_desc += f"\nThe column '{col}' is of type {df_dataset[col].dtype} and contains numeric values."
 
@@ -60,25 +64,21 @@ def chained_question(primer_desc, primer_code, question):
 
 def generate_code(question_to_ask, api_key):
     # Set up OpenAI API key
-    openai.api_key = api_key
+    client = OpenAI(api_key=api_key,)
     
     # Request code generation from GPT-3.5
-    response = openai.Completion.create(
-        engine="davinci-codex",  # GPT-3.5 engine
-        prompt=question_to_ask,
-        temperature=0,
-        max_tokens=500,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        stop=["plt.show()"]
-    )
+    task = """Generate Python Code Script.
+            The script should only include code, no comments."""
+
+    response = client.chat.completions.create(model="gpt-3.5-turbo",
+                                              messages=[{"role":"system","content":task},{"role":"user","content":question_to_ask}])
     
     # Extract the generated code from the response
-    generated_code = response["choices"][0]["text"] 
+    # llm_response = response["choices"][0]["message"]["content"]
+    llm_response = response.choices[0].message.content
     
     # Remove unnecessary lines related to 'read_csv'
-    generated_code = remove_read_csv_lines(generated_code)
+    generated_code = remove_read_csv_lines(llm_response)
     
     return generated_code
 

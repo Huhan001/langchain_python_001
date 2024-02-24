@@ -9,9 +9,6 @@ def setPrompt(data):
 
     load_dotenv(find_dotenv(), override=True)
 
-    os.environ["LANGCHAIN_TRACING_V2"] = "true"
-    os.environ["LANGCHAIN_API_KEY"] = os.environ["LANGCHAIN_API_KEY"]
-
     # Now loading the llms
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=os.environ["OPENAI_API_KEY"])
     panda_agent = create_pandas_dataframe_agent(llm, data, agent_type="openai-tools", verbose=True)
