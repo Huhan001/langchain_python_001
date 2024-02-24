@@ -7,7 +7,12 @@ from langchain.prompts import PromptTemplate
 from langchain_community.llms import OpenAI
 from langchain.chains import LLMChain
 import streamlit as st
+import altair as alt
+
+#custome frontend modules
 from animation import *
+
+st.set_page_config(layout="wide",initial_sidebar_state="expanded")
 
 #header 
 st.markdown("<h4 style='text-align: center; font-family:Menlo; color:orange; padding-top: 0rem;'>Data Visualization with LLM's</h4>", unsafe_allow_html=True)
