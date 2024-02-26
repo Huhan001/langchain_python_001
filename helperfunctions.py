@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 import matplotlib.pyplot as plt
-# from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv, find_dotenv
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
@@ -31,7 +31,7 @@ def generate_code(question_to_ask, api_key):
 
 def code_generator(data, question, openai_key):
 
-    # load_dotenv(find_dotenv(), override=True)
+    load_dotenv(find_dotenv(), override=True)
 
     # Now loading the llms
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=openai_key)
@@ -42,7 +42,7 @@ def code_generator(data, question, openai_key):
     return code_visual
 
 def insgight(data, question, openai_key):
-    # load_dotenv(find_dotenv(), override=True)
+    load_dotenv(find_dotenv(), override=True)
 
     # Now loading the llms
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openai_key)
@@ -54,7 +54,7 @@ def insgight(data, question, openai_key):
 
 
 def code_generator2(data, question, openai_key):
-    # load_dotenv(find_dotenv(), override=True)
+    load_dotenv(find_dotenv(), override=True)
 
     # Now loading the llms
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=openai_key)

@@ -1,0 +1,7 @@
+os
+dotenv
+streamlit
+langchain_openai
+langchain_experimental
+openai
+matplotlib
