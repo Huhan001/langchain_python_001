@@ -4,3 +4,13 @@ langchain_experimental
 openai
 matplotlib
 tabulate
+joypy
+seaborn
+plotly
+bokeh
+ggplot
+plotnine
+pygal
+holoviews
+networkx
+altair

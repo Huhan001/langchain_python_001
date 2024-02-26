@@ -89,8 +89,27 @@ with col[0]:
             api_keys_entered = True
 
         if api_keys_entered:
-            code_generator(dataframe[chosen_data], question, openai_key)
-            st.pyplot()
+            
+            # 📌
+            description = split_question_explanations(dataframe[chosen_data], chosen_data, question)
+
+            # 📌
+            primer, cosss = repurposed_split_question(dataframe[chosen_data], chosen_data)
+
+            # 📌
+            output = generate_code(description, openai_key)
+
+            last_but_not_least = ""
+            last_but_not_least = cosss + output.strip()
+            
+            # 📌
+            last = replace_df_copy_with_chosen_data_copy(last_but_not_least, chosen_data)
+        
+            
+            plot = st.empty()
+            plot.pyplot(exec(last))
+
+            # 📌
             insgight(dataframe[chosen_data], question, openai_key)
                                 
 

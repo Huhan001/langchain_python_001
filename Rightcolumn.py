@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
-
+# 📌
 def setPrompt(data):
 
     # load_dotenv(find_dotenv(), override=True)
