@@ -5,6 +5,7 @@ from langchain_openai import ChatOpenAI
 
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
+
 def setPrompt(data):
 
     load_dotenv(find_dotenv(), override=True)
@@ -22,9 +23,8 @@ def setPrompt(data):
     insights = panda_agent.run("briefly describe the data?")
     st.success(f"**{insights}**")
     drawback = panda_agent.run("conjour only one tactical decision from the data?")
-    # st.warning(f"**{drawback}**")
-    # st.write("___")
-
+    st.warning(f"**{drawback}**")
+    st.write("___")
 
 def code_generator(data, question, openai_key):
 
@@ -34,8 +34,8 @@ def code_generator(data, question, openai_key):
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=openai_key)
     panda_agent = create_pandas_dataframe_agent(llm, data, agent_type="openai-tools", verbose=True)
 
-
-    code_visual = panda_agent.run(f"{question}  + generate python code to visualize the data that can be displayed in streamlit")
+    # code_visual = panda_agent.run(f"{question}  + generate python code to visualize the data that can be displayed in streamlit")
+    code_visual = panda_agent.run(f"{question}  + generate a st.area_chart code to visualize the data that can be displayed in streamlit")
     code_visual = f"```python\n{code_visual}\n```"
     return code_visual
 
@@ -46,5 +46,5 @@ def insgight(data, question, openai_key):
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openai_key)
     panda_agent = create_pandas_dataframe_agent(llm, data, agent_type="openai-tools", verbose=True)
 
-    explanation = panda_agent.run(f"{question}  + issue verbal explanation of only")
+    explanation = panda_agent.run(f"{question}  + issue verbal explanation only do not provide code")
     st.warning(f"**{explanation}**")

@@ -5,7 +5,6 @@ import streamlit as st
 #custome frontend modules
 from animation import *
 from Rightcolumn import *
-# from helperfunctions import *
 
 
 st.set_page_config(layout="wide",initial_sidebar_state="expanded")
