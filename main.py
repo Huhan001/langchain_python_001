@@ -1,23 +1,15 @@
-import openai
 import os
 import pandas as pd
-from dotenv import load_dotenv, find_dotenv
-from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
-from langchain_community.llms import OpenAI
-from langchain.chains import LLMChain
 import streamlit as st
-import altair as alt
-from langchain_experimental.agents import create_pandas_dataframe_agent
 
 #custome frontend modules
 from animation import *
 from Rightcolumn import *
-from helperfunctions import *
+# from helperfunctions import *
 
 
 st.set_page_config(layout="wide",initial_sidebar_state="expanded")
-plot_area = st.empty()
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 #header 
 st.markdown("<h4 style='text-align: center; font-family:Menlo; color:orange; padding-top: 0rem;'>Data Visualization with LLM's</h4>", unsafe_allow_html=True)
@@ -75,8 +67,9 @@ with st.sidebar:
     golive()
 
 col = st.columns((6, 2), gap='medium')
+
 with col[0]:
-    question = st.text_area("Provide description for visualization", height=9)
+    question = st.text_area("Provide description for visualization", height=5)
     Vizbutton = st.button("Visualize Data",type="primary")
 
     if chosen_data:
@@ -94,59 +87,11 @@ with col[0]:
         if on == False:
             api_keys_entered = True
 
-        # if api_keys_entered:
-        # # Get the primer for the chosen dataset
-        #     primer_desc, primer_code = create_dataframe_primer(dataframe[chosen_data], chosen_data)
-
-        #     try:
-        #         # Format the question
-        #         question = chained_question(primer_desc, primer_code, question)
-
-        #         # Generate code using OpenAI API
-        #         generate_code = ""
-        #         generated_code = generate_code(question, openai_key)
-
-        #         # Execute the generated code
-        #         generated_code = generated_code + primer_code
-        #         print(generated_code)
-        #         st.write("Graph Visualization")
-        #         plot_area = st.empty()
-        #         plot_area.pyplot(exec(generated_code))
-
-        #     except Exception as e:
-        #         if type(e) == openai.APIConnectionError:
-        #             st.error("The server could not be reached")
-        #         elif type(e) == openai.APIStatusError:
-        #             st.error("Another non-200-range status code was received")
-        #         elif type(e) == openai.RateLimitError:
-        #             st.error("A 429 status code was received; we should back off a bit.")
         if api_keys_entered:
-    # Get the primer for the chosen dataset
-            primer_desc, primer_code = create_dataframe_primer(dataframe[chosen_data], chosen_data)
-
-            try:
-                # Format the question
-                question = chained_question(primer_desc, primer_code, question)
-
-                # Generate code using OpenAI API
-                generated = ""
-                generated = generate_code(question, openai_key)
-
-                # Execute the generated code
-                generated = primer_code + generated
-        
-                st.write("Graph Visualization")
-                plot_area.pyplot(exec(generated))
-
-            except Exception as e:
-                if type(e) == openai.APIConnectionError:
-                    st.error("The server could not be reached")
-                elif type(e) == openai.APIStatusError:
-                    st.error("Another non-200-range status code was received")
-                elif type(e) == openai.RateLimitError:
-                    st.error("A 429 status code was received; we should back off a bit.")
-
-                
+            code_generator(dataframe[chosen_data], question, openai_key)
+            st.pyplot()
+            insgight(dataframe[chosen_data], question, openai_key)
+                                
 
 with col[1]:
     setPrompt(dataframe[chosen_data])    # Add indented block of code here
