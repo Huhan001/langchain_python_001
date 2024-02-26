@@ -1,4 +1,4 @@
-import os
+# import os
 import pandas as pd
 import streamlit as st
 
@@ -42,7 +42,7 @@ with st.sidebar:
         st.divider()
     else:
         st.caption("Currently using default API")
-        openai_key = os.environ["OPENAI_API_KEY"]
+        # openai_key = os.environ["OPENAI_API_KEY"]
         st.divider()
 
 
