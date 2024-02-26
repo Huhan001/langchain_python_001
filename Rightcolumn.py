@@ -12,6 +12,7 @@ def setPrompt(data):
 
     # Now loading the llms
     # llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=os.environ["OPENAI_API_KEY"])
+    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6, api_key=st.secrets["OPENAI_API_KEY"])
     panda_agent = create_pandas_dataframe_agent(llm, data, agent_type="openai-tools", verbose=True)
 
 

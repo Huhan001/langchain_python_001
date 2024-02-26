@@ -43,6 +43,7 @@ with st.sidebar:
     else:
         st.caption("Currently using default API")
         # openai_key = os.environ["OPENAI_API_KEY"]
+        openai_key = st.secrets["OPENAI_API_KEY"]
         st.divider()
 
 
