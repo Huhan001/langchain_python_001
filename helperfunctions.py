@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv, find_dotenv
+# from dotenv import load_dotenv, find_dotenv
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
