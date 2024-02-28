@@ -9,7 +9,7 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 
 
 # 📌
-def generate_code(question_to_ask, api_key):
+def generate_code(prompt_question, api_key):
     # Set up OpenAI API key
     client = OpenAI(api_key=api_key,)
     
@@ -22,7 +22,7 @@ def generate_code(question_to_ask, api_key):
                                               frequency_penalty=0,
                                               presence_penalty=0,
                                               top_p=1.0,
-                                              messages=[{"role":"system","content":task},{"role":"user","content":question_to_ask}])
+                                              messages=[{"role":"system","content":task},{"role":"user","content":prompt_question}])
     
     # Extract the generated code from the response
     llm_response = response.choices[0].message.content
